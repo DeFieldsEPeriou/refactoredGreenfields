@@ -1,6 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+<<<<<<< HEAD
+=======
+const config = require('./config');
+const path = require('path');
+>>>>>>> (feature) add capability to type in url path and receive the correct page, add component for NotFound page, add catch-all route for nonexistent paths to route to NotFound
 
 require('dotenv').config();
 // connect to the database and load models
@@ -31,9 +36,12 @@ const apiRoutes = require('./server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './server/static/index.html'));
+});
+
 
 // start the server
 app.listen(process.env.PORT || 3000, () => {
-  console.log(process.env.PORT,process.env.MONGO_KEY)
   console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
 });
